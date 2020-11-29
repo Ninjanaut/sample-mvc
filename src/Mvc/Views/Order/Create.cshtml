@@ -1,0 +1,36 @@
+﻿@model Mvc.ViewModels.Order.CreateOrderViewModel
+
+@if (TempData["success"]?.ToString() == "true")
+{
+    <div class="alert alert-success">You did a great deal!</div>
+}
+
+<form method="post">
+
+    <input asp-for="CustomerId" value="@Model.Customer.Id" type="hidden" />
+
+    <strong>@Model.Customer.FullName.GetFullName()</strong>, your weapons are waiting !
+
+    <h5 style="margin-top: 15px">Products in basket</h5>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @foreach (var orderItem in Model.OrderItems)
+    {
+        <div class="form-group">
+
+            <strong>@orderItem.ProductName</strong>
+            <br />
+            <i>quantity</i>
+
+            @{ int productIndex = (int)orderItem.ProductId - 1; }
+
+            <input asp-for="OrderItems[productIndex].ProductId" type="hidden" />
+            <input asp-for="OrderItems[productIndex].Quantity" class="form-control" />
+
+            <span asp-validation-for="OrderItems[productIndex].Quantity" class="text-danger"></span>
+        </div>
+    }
+
+    <button clas="btn btn-primary" type="submit">Create order</button>
+</form>
