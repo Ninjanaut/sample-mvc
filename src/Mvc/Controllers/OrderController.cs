@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mvc.Application.Commands.CreateOrder;
 using Mvc.Infrastructure.Data;
 using Mvc.ViewModels.Order;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Mvc.Controllers
@@ -17,13 +14,11 @@ namespace Mvc.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IMediator _mediator;
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
-        public OrderController(ILogger<HomeController> logger, IMediator mediator, AppDbContext context, IMapper mapper)
+        public OrderController(ILogger<HomeController> logger, IMediator mediator, AppDbContext context)
         {
             _logger = logger;
             _mediator = mediator;
             _context = context;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -35,7 +30,7 @@ namespace Mvc.Controllers
         }
 
         // Server side rendering.
-        // In case of client side, we can use Mvc.Filters.ModelAttribute, 
+        // In case of client side, we can use 
         // "return BadRequest(ModelState)" and "return Ok()" statements.
         [HttpPost]
         public IActionResult Create(CreateOrderViewModel model)
@@ -47,18 +42,9 @@ namespace Mvc.Controllers
             }
             try
             {
-                var orderItems 
-                    = new List<CreateOrderCommand.OrderItemDto>();
+                model.Command.VoucherPercentageDiscount = 10;
 
-                model.OrderItems.ForEach(orderItem 
-                    => orderItems.Add(_mapper.Map<CreateOrderCommand.OrderItemDto>(source: orderItem)));
-                
-                var response =
-                    _mediator.Send(
-                        new CreateOrderCommand(
-                            model.CustomerId,
-                            orderItems,
-                            voucherPercentageDiscount: 10));
+                var response = _mediator.Send(model.Command);
 
                 _logger.LogInformation($"Order {response.Result} created.");
 
@@ -78,21 +64,7 @@ namespace Mvc.Controllers
         private void PopulateCreateViewModel(CreateOrderViewModel model)
         {
             model.Customer = _context.Customers.Find(1); // Han Solo Sample Customer
-            var products = _context.Products.ToList();
-
-            if (model.OrderItems?.Count == 0)
-            {
-                foreach (var product in products)
-                {
-                    model.OrderItems.Add(
-                        new CreateOrderViewModel.OrderItemViewModel()
-                        {
-                            ProductName = product.Name,
-                            ProductId = (int)product.Id,
-                            Quantity = 1
-                        });
-                }
-            }
+            model.Products = _context.Products.ToList();
         }
     }
 }

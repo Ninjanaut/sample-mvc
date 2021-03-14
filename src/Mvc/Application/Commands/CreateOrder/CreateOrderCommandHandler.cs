@@ -5,7 +5,6 @@ using Mvc.Infrastructure.Data;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using static Mvc.Application.Commands.CreateOrder.CreateOrderCommand;
 
 namespace Mvc.Application.Commands.CreateOrder
 {
@@ -23,7 +22,7 @@ namespace Mvc.Application.Commands.CreateOrder
         {
             var orderItems = new List<OrderItem>();
 
-            foreach (OrderItemDto orderItem in command.OrderItems)
+            foreach (CreateOrderCommand.OrderItem orderItem in command.OrderItems)
             {
                 orderItems.Add(
                     new OrderItem(
