@@ -39,11 +39,11 @@ namespace Mvc.Tests.Controllers
             //// Prepare order post data
             var formContent = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("CustomerId", customer.Id.ToString()),
-                new KeyValuePair<string, string>("OrderItems[0].ProductId", "1"),
-                new KeyValuePair<string, string>("OrderItems[0].Quantity", "10"),
-                new KeyValuePair<string, string>("OrderItems[1].ProductId", "2"),
-                new KeyValuePair<string, string>("OrderItems[1].Quantity", "20"),
+                new KeyValuePair<string, string>("Command.CustomerId", customer.Id.ToString()),
+                new KeyValuePair<string, string>("Command.OrderItems[0].ProductId", "1"),
+                new KeyValuePair<string, string>("Command.OrderItems[0].Quantity", "10"),
+                new KeyValuePair<string, string>("Command.OrderItems[1].ProductId", "2"),
+                new KeyValuePair<string, string>("Command.OrderItems[1].Quantity", "20"),
             });
 
             // Act
