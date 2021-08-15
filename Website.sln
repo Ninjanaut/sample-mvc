@@ -11,7 +11,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "src\Database\Da
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{61081CB8-FA98-4310-AF0E-D74A24BC3FB0}"
 	ProjectSection(SolutionItems) = preProject
-		tests\Readme.txt = tests\Readme.txt
+		tests\readme.txt = tests\readme.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "tests\Domain.Tests\Domain.Tests.csproj", "{AC5554FE-97C4-44E2-9CAB-D730D46545D2}"
@@ -19,6 +19,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc.Tests", "tests\Mvc.Tests\Mvc.Tests.csproj", "{8811D504-05E0-4A20-953B-D71A7042BB39}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9E07C05C-D4E6-4F29-A7FF-20DDB177862D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD786B14-84E2-457C-A14A-05C3A031FCCC}"
+	ProjectSection(SolutionItems) = preProject
+		docs\readme.md = docs\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

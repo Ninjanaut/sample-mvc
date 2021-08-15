@@ -44,9 +44,9 @@ namespace Mvc.Controllers
             {
                 model.Command.VoucherPercentageDiscount = 10;
 
-                var response = _mediator.Send(model.Command);
+                var response = _mediator.Send(model.Command).Result;
 
-                _logger.LogInformation($"Order {response.Result} created.");
+                _logger.LogInformation($"Order {response} created.");
 
                 TempData["success"] = "true";
 
